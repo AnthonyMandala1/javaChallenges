@@ -19,32 +19,43 @@ public class happyNumber {
 
         int input = inputReader.nextInt();
         checkIfHappy(input);
-
-
-        //System.out.println("Input: " + input);
+        
     }
 
     public static void checkIfHappy(int number) {
-        String numString = Integer.toString(number);
+        int firstNum = number;
+        while(number != 1) { // run until happy or repeat
+            String numString = Integer.toString(number);
+            int[] digits = new int[numString.length()];
+            for (int i = 0; i < numString.length(); i++) {
+                digits[i] = numString.charAt(i) - '0';
+            }
+            //System.out.println(Arrays.toString(digits));
 
-        int[] digits = new int[numString.length()];
-        for (int i = 0; i < numString.length(); i++) {
-            digits[i] = numString.charAt(i) - '0';
-        }
-        System.out.println(Arrays.toString(digits));
+            for (int j = 0; j < digits.length; j++) {
+                int numFromIndex = digits[j];
+                int squared = numFromIndex * numFromIndex;
+                digits[j] = squared;
+            }
+            System.out.println(Arrays.toString(digits));
 
-        for (int j = 0; j < digits.length; j++) {
-            int numFromIndex = digits[j];
-            int squared = numFromIndex * numFromIndex;
-            digits[j] = squared;
-        }
-        System.out.println(Arrays.toString(digits));
+            int sumOfDigits = 0;
+            for(int k = 0; k < digits.length; k++) {
+                sumOfDigits = sumOfDigits + digits[k];
+            }
 
-        int sumOfDigits = 0;
-        for(int k = 0; k < digits.length; k++) {
-            sumOfDigits = sumOfDigits + digits[k];
+            number = sumOfDigits;
+            System.out.println("Sum of digits is: " + sumOfDigits);
+
+            if(sumOfDigits == firstNum) {
+                System.out.println(firstNum + " is not happy");
+                break;
+            } else if (sumOfDigits == 1) {
+                System.out.println(firstNum + " is happy");
+                number = 1;
+            }
         }
-        System.out.println("Sum of digits is: " + sumOfDigits);
+
     }
 
 //    public static Boolean checkIfInt (int number) {
